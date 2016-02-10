@@ -1,0 +1,16 @@
+<ol>
+	<% if(items.length > 0) {%>
+		<% for(var i=0; i<items.length; i++) {%>
+			<% if(items[i]._id == current_item) {%>
+				<form class="update-form" action="/update/<%= current_item %>" method="post" accept-charset="utf-8">
+			  	<input class="update-input" type="text" name="text" value="<%= items[i].text %>" />
+			  </form>
+			  <!-- <br> -->
+			<% } else { %>
+				<%= items[i].text %> | <a href="/destroy/<%= items[i]._id %>">Delete</a>
+				<br>
+			<% } %>
+		<% } %>
+	<% } %>
+</ol>
+

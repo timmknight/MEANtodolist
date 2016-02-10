@@ -1,0 +1,388 @@
+<!-- index.html -->
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="todo">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Node/Angular Todo App</title>
+
+    <!-- SCROLLS -->
+    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" href="assets/css/grid.css"> -->
+
+    <style>
+        html                    { overflow-y:scroll; }
+        body { font-family: 'Roboto', sans-serif; font-style: 20px; }
+        #todo-list              { margin-bottom:30px; }
+        .todo {color:#4D4D4D;}
+        .complete {color: #B5B5B5; font-size: 15px;}
+        /*.completeCheckbox {background: #E6E6E6; height: 15px; width: 15px; border-radius: 50%;}
+        .completeChecked {background: #3ECC6D; height: 8px; width: 8px;}*/
+        .delete svg:hover{fill: #e05d6a !important}
+        div.completeChecked svg, div.completeCheckbox svg:hover, div.completeChecked svg path {
+            fill: #5DE092 !important;
+        }
+
+
+        svg .completeChecked path{
+  fill: #8C8C8C !important; }
+
+    svg, .delete, .completeCheckbox {
+        width: 24px;
+        height: 24px;
+    }
+  .delete, .completeCheckbox, .todotext {
+   
+    display: inline-block;
+    /*float: right;*/
+  }
+
+    .completeCheckbox {
+        /*padding-left: 5px;*/
+    }
+
+    .text-dark {
+        color: #4D4D4D;
+    }
+
+    .text-light {
+        color: #B5B5B5;
+    }
+
+  .delete {
+    float: right;
+  }
+    .todoRow {
+        padding-bottom: 5px;
+        max-width: 450px;
+        margin: 0 auto;
+        height: 30px;
+
+    }
+
+    
+    #todo-list, header, #todo-form
+     {
+        margin-top: 50px;
+        max-width: 420px;
+        margin: 0 auto;
+    }
+    .todotext {
+        min-width: 350px;
+        max-width: 450px;
+
+    }
+
+    .btn, .btn:hover {
+        border: 0px;
+        /*border-radius: 3px;*/
+        color: white;
+        line-height: 20px;
+        padding: 6px 12px;
+        font-size: 14px;
+        min-width: 150px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+
+    }
+
+    .btn-add, .btn-focus, .btn-refocus {
+        background: #059CFF;
+    }
+
+    .btn-add:hover, .btn-focus:hover, .btn-refocus:hover {
+        background: #40B3FF;
+    }
+
+    .btn-add, .btn-add:hover {
+        /*color: #059CFF;*/
+    }
+    .btn-focus {
+        /*background: #7984DD;*/
+        /*background: */
+    }
+    .btn-focus:hover {
+        /*background: #8d97e3;*/
+    }
+
+     .btn-refocus {
+/*        color: #059CFF;
+        background: white;
+*/        /*background: */
+    }
+    .btn-refocus:hover {
+/*        color:  #40B3FF;
+        background: white;
+*/    }
+    .btn-refocus, .btn-refocus:hover {
+        /*color: #2cd771;*/
+    }
+    .test {
+        width: 65px;
+        display: inline-block;
+
+        float: right;
+    }
+    input {
+        border-radius: 3px;
+        border: 1px solid #d0d4d9;
+        padding: 6px 12px;
+        color: #4D4D4C;
+        font-size: 14px;
+    }
+
+    .focusChoice {
+        width: 50%;
+        height: 100vh;
+        /*background: blue;*/
+
+    }
+
+    body {
+        margin: 0;
+    }
+    .btn:focus {
+        outline: none;
+    }
+    
+
+      .focusChoice {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 20px;
+        height: 40vh;
+        background: #059CFF;
+        color: white;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
+    }
+
+    .task-question, .focusChoice {
+        max-width: 500px;
+        width: 100vw;
+        margin: 0 auto;
+    }
+    .focus-container {
+        margin: 5vh 0;
+    }
+        .text-center {
+        text-align: center;
+    }
+    .btn-container {
+        margin-top: 30px;
+        padding: 0 20px;
+    }
+    .btn-add {
+        float: left;
+    }
+
+    .btn-focus {
+        float: right;
+    }
+    #todo-form {
+        margin-bottom: 30px;
+    }
+    .btn-focus {
+        float: right;
+    }
+    .task-input, .task-input:focus, .task-edit, .task-edit:focus {
+        width: 300px;
+        margin: 20px 0;
+        border-top: 0px;
+        border-left: 0px;
+        border-right: 0px;
+        border-radius: 0;
+        box-shadow: none;
+        outline: none;
+    }
+    .task-edit, .task-edit:focus {
+        margin: 0;
+    }
+ .focus-container div:nth-child(2) .focusChoice{
+        background: white;
+        color: #059CFF;
+    }
+    .task-input:focus, .task-edit:focus {
+        border-bottom: 1px solid #1FA6FF;
+    }
+    .task-question {
+        height: 10vh;
+    }
+
+     .flexbox-container { 
+       display: -webkit-flex;
+       display: flex;
+       -webkit-flex-direction: row /* works with row or column */
+       flex-direction: row;
+       -webkit-align-items: center;
+       align-items: center;
+       -webkit-justify-content: center;
+       justify-content: center;
+    }
+    h1{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .btn-refocus {
+        margin: 0 auto;
+         margin-top: 20px;
+    }
+
+    .a{ 
+        text-align: center;
+       }
+  @media screen and (max-width: 500px) {
+    /*svg , .delete, .completeCheckbox {
+        width: 18px;
+        height: 18px;
+    }*/
+
+
+     .todotext {
+        min-width: 250px;
+        max-width: 250px;
+
+    }
+
+    #todolist, .todoRow, header, #todo-form{
+        max-width: 320px;
+    }
+
+     .focusChoice {
+        max-width: 500px;
+        width: 100vw;
+        margin: 0 auto;
+        height: 45vh;
+        background: #4997FC;
+        color: white;
+    }
+
+
+
+    .task-question {
+        max-width: 500px;
+        margin: 0 auto;
+        width: 100vw;
+
+
+    }
+
+    .focus-container {
+        margin:0;
+    }
+
+   
+}
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.0/angular.min.js"></script><!-- load angular -->
+         <script src="https://code.angularjs.org/1.5.0-rc.0/angular-route.min.js"></script>
+
+    <script src="js/core.js"></script>
+
+    <script src="js/controllers/main.js"></script>
+    <script src="js/services/todos.js"></script>
+
+</head>
+<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+<body ng-controller="MainController as main">
+    <div class="">
+
+    <header ng-hide="focusing" class="">
+     <h2 class="title text-dark text-center">Focus my task list</h2>
+     <p class="text-center">Simply add your tasks, click Focus my tasks and select the most important task until you've got a task to focus on. Once you've completed that task click Refocus.</p>
+    </header>
+
+
+    
+
+        <!-- TODO LIST -->
+        <div id="todo-list" class="col-xs-10 col-xs-offset-1 col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 center" ng-hide="focusing">
+
+            <!-- LOOP OVER THE TODOS IN $scope.todos -->
+            <div ng-repeat="todo in todos" class="row todoRow" ng-class="{editing: todo == editedTodo}">
+            <div class="todotext">
+                <label type="text" ng-hide="editing" ng-dblclick="editing = true" class="ng-binding todo  col-xs-10 col-sm-8 col-md-10" ng-class="{complete: todo.complete}">{{ todo.text }}</label>
+                <form ng-show="editing" ng-submit="editTodo(todo)" class="">
+                    <input class="task-edit" ng-trim="false" todo-escape="revertEdits(todo)"  ng-blur="saveEdits(todo, 'blur')" ng-model="todo.text" todo-focus="todo == editedTodo">
+                </form>
+                </div>
+                <!-- <button type="submit" class="btn btn-success" ng-click="completeTodo(todo._id)" ng-model="todo.complete">Complete</button>         				 -->
+                <!-- <div class="complete" ng-click="completeTodo(todo._id)">blah</div>	 -->
+                <div class="test">
+                    <div class="completeCheckbox" ng-class="{completeChecked: todo.complete}" ng-model="todo.complete" ng-click="completeTodo(todo._id) ">	
+                        <svg ng-class="{completeChecked: todo.complete}" fill="#E6E6E6" viewBox="0 0 24 24">
+                            <path  d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                        </svg>
+                    </div>	
+                   <!--  <div class="col-xs-1"></div> -->
+                    <div type="submit" class="delete " ng-click="deleteTodo(todo._id)">
+                        <svg viewBox="0 0 24 24" fill="#B5B5B5" >
+                            <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                        </svg>
+                    </div> 
+                </div>
+                <!-- <div class="seperator col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 center"></div> -->
+            </div>
+        </div>
+        <!-- FORM TO CREATE TODOS -->
+        <div id="todo-form" ng-hide="focusing" class="flexbox-container">
+            <form>
+                <div class="flexbox-container">
+                    <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+                    <input type="text" class="col-xs-10 task-input" placeholder="Do the laundry" ng-model="formData.text">
+                </div>
+                <!-- createToDo() WILL CREATE NEW TODOS -->
+        <!-- <button type="submit" class="btn btn-refocus" ng-click="focusTodo();" ng-hide="focusTodos" ng-if="todos.length > 2">ReFocus my tasks</button> -->
+                <button type="submit" class="btn btn-add" ng-click="createTodo()"  ng-hide="focusing">Add my task</button>
+                <button type="submit" class="btn btn-focus" ng-click="focusTodo();"   ng-if="todos.length > 2">Focus my tasks</button>
+       
+            </form>
+        </div>
+
+<!-- 
+        <div ng-hide="focusing" class="btn-container">
+
+                 </div>
+ -->
+        <div class="focus-container">
+        <div ng-repeat="ftodo in focusTodos" ng-show="focusing" >
+            <!-- <label for=""> {{ focusTodos.length }}</label> -->
+           <div class="flexbox-container task-question" ng-if="ftodo === focusTodos[0]" >
+                Select the most important task
+            </div>
+            <div class="focusChoice flexbox-container" ng-if="focusTodos.length != 1" ng-click="changeTodoFocus(ftodo._id)">
+               {{ ftodo.text }}
+            </div>
+           
+            <div ng-if="focusTodos.length == 1">
+                <span ng-bind="name">{{ftodo.text}}</span>
+            </div>
+        </div>
+</div>
+    
+    </div>
+     <!-- HEADER AND TODO COUNT -->
+     <div class="">
+        <div class="a" ng-if="focusTodos.length == 1 && focusing">
+            <h1 class="title text-dark text-center">I'm going to focus on</h1>
+             <h3 class="title text-dark text-center" >{{ focusTodos[0].text }}</h3>
+            <!--  <a class="completeCheckbox" ng-class="{completeChecked: complete}" ng-click="completeTodo(focusTodos[0]._id); complete=1;" ng-href='/'> 
+                <svg  fill="#E6E6E6" viewBox="0 0 24 24">
+                    <path  d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                </svg>
+            </a>   -->
+
+        <button type="submit" class="btn btn-refocus" ng-click="completeTodo(focusTodos[0]._id); reFocus();"  >Refocus my tasks</button>
+
+        </div>
+        </div>
+</body>
+</html>

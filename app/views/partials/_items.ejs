@@ -1,0 +1,18 @@
+<form method="POST" action="/">
+	<input type="text" id="item" name="item" />
+	<br />
+</form>
+
+<ol>
+<% if(items.length > 0) {%>
+	<% for(var i=0; i<items.length; i++) {%>
+
+
+	   <a href="/edit/<%= items[i]._id %>"><%= items[i].text %></a> | <a href="/destroy/<%= items[i]._id %>">Delete</a><br/>
+
+	<% } %>
+<% } %>
+
+</ol>
+
+
